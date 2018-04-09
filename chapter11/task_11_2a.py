@@ -32,3 +32,16 @@
 > pip install graphviz
 
 '''
+
+from task_11_1 import parse_cdp_neighbors
+from draw_network_graph import draw_topology
+from pprint import pprint
+
+cdp = {}
+for files in ['sh_cdp_n_sw1.txt','sh_cdp_n_r1.txt','sh_cdp_n_r2.txt','sh_cdp_n_r3.txt']:
+    with open(files,'r') as f:
+        data = f.read()
+        cdp.update(parse_cdp_neighbors(data))
+
+pprint(cdp)
+draw_topology(cdp)

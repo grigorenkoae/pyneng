@@ -47,9 +47,12 @@ def parse_cdp_neighbors(string):
             continue
         if n == 1:
             remote_device = line.split()[0]
-            local_port = ' '.join(line.split()[1:3])
+            local_port = ''.join(line.split()[1:3])
             remote_port = ''.join(line.split()[-2:])
-            CDP[(hostname,local_port)] = (remote_device,remote_port)
+            if hostname > remote_device:
+                CDP[(hostname,local_port)] = (remote_device,remote_port)
+            else:
+                CDP[(remote_device,remote_port)] = (hostname,local_port)
     
     return CDP
 
