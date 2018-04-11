@@ -30,10 +30,11 @@ def ip_table(good_ips,bad_ips):
     all_ips = {'Reachable':[],'Unreachable':[]}
     all_ips['Reachable'].extend(good_ips)
     all_ips['Unreachable'].extend(bad_ips)
-    pprint(all_ips)
+    #pprint(all_ips)
     print(tabulate(all_ips, headers='keys'))
 
 if __name__ == "__main__":
     ip_list = ['8.8.8.8', '1.1.1.1-1.1.1.4', '100.3.3.3-5']
     good_ips, bad_ips = check_ip_availability(ip_list)
     ip_table(good_ips,bad_ips)
+    #print(good_ips,bad_ips)
