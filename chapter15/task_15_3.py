@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 15.3
@@ -22,3 +23,19 @@
 диапазоны адресов и так далее, так как обрабатывается вывод команды, а не ввод пользователя.
 
 '''
+
+import sys
+import re
+from pprint import pprint
+
+def parse_cfg(file):
+    ips = []
+    regex = re.compile(r'.*ip address ((?:\d{1,3}.){3}\d{1,3}) ((?:\d{1,3}.){3}\d{1,3})')
+    with open(file) as f:
+        for line in f:
+            if regex.search(line):
+                ips.append(regex.search(line).groups())
+    return ips
+
+if __name__ == "__main__":
+    pprint(parse_cfg(sys.argv[1]))

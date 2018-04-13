@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 15.3a
@@ -20,3 +21,27 @@
 диапазоны адресов и так далее, так как обрабатывается вывод команды, а не ввод пользователя.
 
 '''
+import sys
+import re
+from pprint import pprint
+
+
+def parse_cfg(file):
+
+    int_regex = re.compile(r'^interface (\S*)')
+    ip_regex = re.compile(r'.*ip address ((?:\d{1,3}.){3}\d{1,3}) ((?:\d{1,3}.){3}\d{1,3})')
+    result = {}
+
+    with open(file) as f:
+
+        for line in f:
+            if int_regex.search(line):
+                interface = int_regex.search(line).group()
+            if ip_regex.search(line):
+                result[interface] = ip_regex.search(line).groups()
+    
+    return result
+
+
+if __name__ == "__main__":
+    pprint(parse_cfg(sys.argv[1]))
