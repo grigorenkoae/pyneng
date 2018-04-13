@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 15.2
@@ -20,3 +21,14 @@
 диапазоны адресов и так далее, так как обрабатывается вывод команды, а не ввод пользователя.
 
 '''
+
+import sys
+import re
+
+with open(sys.argv[1]) as f:
+    for line in f:
+        match = re.search(sys.argv[2],line)
+        if match:
+            print(match.group())
+
+# ./task_15_2.py sh_ip_int_br.txt "(\d{1,3}\.){3}\d{1,3}"
