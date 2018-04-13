@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 15.4a
@@ -21,5 +22,22 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 '''
+import sys
+from task_15_4 import parse_sh_ip_int_br
+from pprint import pprint
+
 
 headers = ['interface', 'address', 'status', 'protocol']
+
+
+def convert_to_dict(headers,results):
+    result = []
+    for item in results:
+        result.append(dict(zip(headers,item)))
+    return result
+
+
+if __name__ == "__main__":
+    results = parse_sh_ip_int_br(sys.argv[1])
+    result = convert_to_dict(headers,results)
+    pprint(result)
