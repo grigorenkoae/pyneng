@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
 Задание 17.2a
@@ -25,3 +26,22 @@
 
 Не копировать код функции parse_sh_cdp_neighbors
 '''
+
+from task_17_2 import parse_sh_cdp_neighbors
+import yaml
+import glob
+from pprint import pprint
+
+sh_cdp_files = glob.glob('sh_cdp_n_*')
+#print(sh_cdp_files)
+
+topology = {}
+
+for cdp_file in sh_cdp_files:
+        with open(cdp_file) as f:
+                results = parse_sh_cdp_neighbors(f.read())
+                topology.update(results)
+#pprint(topology)
+
+with open('topology.yaml','w') as f:
+        yaml.dump(topology,f,default_flow_style=False)

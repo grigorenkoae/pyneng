@@ -29,3 +29,25 @@
 > pip install graphviz
 
 '''
+from draw_network_graph import draw_topology
+import yaml
+from pprint import pprint
+
+
+with open('topology.yaml') as f:
+    topology = yaml.load(f)
+#pprint(topology)
+
+
+new_topology = {}
+for hostname,val in topology.items():
+    for local_int, val1 in val.items():
+        for remote_name,remote_port in val1.items():
+            if hostname > remote_name:
+                new_topology.update({(hostname,local_int):(remote_name,remote_port)})
+            else:
+                new_topology.update({(remote_name,remote_port):(hostname,local_int)})
+pprint(new_topology)
+
+
+draw_topology(new_topology)
